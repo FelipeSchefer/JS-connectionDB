@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Document</title>
+</head>
+<body>
+
+ <form onsubmit="salvar()">
+  <input type="text" id="nome" placeholder="Nome">
+  <input type="submit" value="Enviar">
+  <!-- <button type="button" id="create" >create</button> -->
+ </form>
+ <script>
+  // let db = openDatabase("itemDB" , "1.0", "itemDB", 65535)
+  // $(function(){
+  //  $("#create").click(function(criar){
+  //   let sql = "CREATE TABLE items (id INTEGER PRIMARY KEY, nome TEXT )";
+  //    criar.executeSql(sql, undefined,
+  //     function(){
+  //      alert("table was created successfully! ")
+  //     }, function(){
+  //      alert("table already created!")
+  //     }
+  //    )
+  //  })
+  // })
+  
+  let db = openDatabase("meuBanco" , "2.0", "Mybase", 4048)
+  db.transaction(function(criar){
+   criar.executeSql("CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT)")
+  })
+
+  const salvar =() => {
+   let nome = document.getElementById('nome').value
+   db.transaction(function(armazenar){
+    armazenar.executeSql("INSERT INTO user (nome) VALUES (?)", [nome])
+   })
+  }
+
+ </script>
+
+</body>
+</html>
